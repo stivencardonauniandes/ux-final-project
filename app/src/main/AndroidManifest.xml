@@ -46,6 +46,11 @@
             android:exported="false"
             android:label="Alarmas sugeridas"
             android:theme="@style/Theme.Pulseai" />
+        <activity
+            android:name=".AlarmPreviewActivity"
+            android:exported="false"
+            android:label="Vista previa"
+            android:theme="@style/Theme.Pulseai" />
     </application>
 
 </manifest>

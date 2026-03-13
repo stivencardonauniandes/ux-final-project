@@ -24,7 +24,15 @@ class HomeActivity : ComponentActivity() {
                         onSettingsClick = {
                             startActivity(Intent(this, SettingsActivity::class.java))
                         },
-                        onAlarmAdjustClick = { /* TODO */ },
+                        onAlarmAdjustClick = { alarm ->
+                            startActivity(
+                                Intent(this, AlarmPreviewActivity::class.java).apply {
+                                    putExtra(AlarmPreviewActivity.EXTRA_TITLE, alarm.title)
+                                    putExtra(AlarmPreviewActivity.EXTRA_DESCRIPTION, alarm.description)
+                                    putExtra(AlarmPreviewActivity.EXTRA_TIME, alarm.time)
+                                }
+                            )
+                        },
                         onFabClick = { /* TODO */ },
                     )
                 }
