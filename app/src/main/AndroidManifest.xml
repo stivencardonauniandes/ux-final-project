@@ -13,11 +13,6 @@
         android:theme="@style/Theme.Pulseai">
         <activity
             android:name=".MainActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Pulseai" />
-        <activity
-            android:name=".HowItWorksActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Pulseai">
@@ -26,6 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HowItWorksActivity"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Pulseai" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"

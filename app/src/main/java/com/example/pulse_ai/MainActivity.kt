@@ -1,5 +1,6 @@
 package com.example.pulse_ai
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -65,7 +66,11 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .padding(innerPadding),
-                                onBack = { currentScreen = Screen.Onboarding }
+                                onBack = { currentScreen = Screen.Onboarding },
+                                onFinish = {
+                                    startActivity(Intent(this, HowItWorksActivity::class.java))
+                                    finish()
+                                }
                             )
                         }
                     }
@@ -130,6 +135,7 @@ fun OnboardingScreen(
 fun RegistrationScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
+    onFinish: () -> Unit = {},
 ) {
     var fullName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
@@ -194,7 +200,8 @@ fun RegistrationScreen(
                 text = "FINALIZAR",
                 onClick = {
                     focusManager.clearFocus()
-                    // TODO: validate and submit registration
+                    // TODO: validar y guardar registro
+                    onFinish()
                 }
             )
         }
