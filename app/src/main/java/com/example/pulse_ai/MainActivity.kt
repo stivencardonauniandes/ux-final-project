@@ -41,6 +41,7 @@ import com.example.pulse_ai.ui.theme.AppTheme
 private sealed class Screen {
     data object Onboarding : Screen()
     data object Registration : Screen()
+    data object Login : Screen()
 }
 
 class MainActivity : ComponentActivity() {
@@ -57,11 +58,20 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize()
                                 .padding(innerPadding),
                             onRegisterClick = { currentScreen = Screen.Registration },
-                            onLoginClick = { /* TODO: navigate to login */ }
+                            onLoginClick = { currentScreen = Screen.Login }
                         )
                         is Screen.Registration -> {
                             BackHandler { currentScreen = Screen.Onboarding }
                             RegistrationScreen(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(innerPadding),
+                                onBack = { currentScreen = Screen.Onboarding }
+                            )
+                        }
+                        is Screen.Login -> {
+                            BackHandler { currentScreen = Screen.Onboarding }
+                            LoginScreen(
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .padding(innerPadding),
@@ -248,7 +258,7 @@ private fun RegistrationField(
 }
 
 @Composable
-private fun LogoCard() {
+fun LogoCard() {
     Surface(
         shape = RoundedCornerShape(32.dp),
         color = MaterialTheme.colorScheme.primary.copy(alpha = 0.06f)
@@ -285,7 +295,7 @@ private fun LogoCard() {
 }
 
 @Composable
-private fun PrimaryRoundedButton(
+fun PrimaryRoundedButton(
     text: String,
     onClick: () -> Unit,
 ) {
