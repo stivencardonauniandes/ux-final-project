@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -29,7 +30,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -268,39 +276,44 @@ private fun RegistrationField(
     )
 }
 
+private const val PULSE_ICON_VIEWPORT = 512f
+private val PulseIconBackground = Color(0xFF0F172A)
+private val PulseGradientStart = Color(0xFF6A5CFF)
+private val PulseGradientEnd = Color(0xFF00D4FF)
+
 @Composable
 fun LogoCard() {
     Surface(
         shape = RoundedCornerShape(32.dp),
-        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.06f)
+        color = PulseIconBackground
     ) {
-        Box(
-            modifier = Modifier
-                .size(160.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            // Simple abstract shapes to echo the Figma icon
-            Box(
-                modifier = Modifier
-                    .offset(x = (-18).dp, y = (-8).dp)
-                    .size(40.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.15f))
-            )
-            Box(
-                modifier = Modifier
-                    .offset(x = 18.dp, y = 4.dp)
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.15f))
-            )
-            Box(
-                modifier = Modifier
-                    .offset(y = 18.dp)
-                    .size(28.dp)
-                    .clip(RoundedCornerShape(50))
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f))
-            )
+        Canvas(modifier = Modifier.size(160.dp)) {
+            val scale = size.minDimension / PULSE_ICON_VIEWPORT
+            scale(scale, scale) {
+                // Pulse line path: M90 260 L170 260 L210 170 L260 350 L310 200 L350 260 L420 260
+                val path = Path().apply {
+                    moveTo(90f, 260f)
+                    lineTo(170f, 260f)
+                    lineTo(210f, 170f)
+                    lineTo(260f, 350f)
+                    lineTo(310f, 200f)
+                    lineTo(350f, 260f)
+                    lineTo(420f, 260f)
+                }
+                drawPath(
+                    path = path,
+                    brush = Brush.linearGradient(
+                        start = Offset(0f, 0f),
+                        end = Offset(PULSE_ICON_VIEWPORT, PULSE_ICON_VIEWPORT),
+                        colors = listOf(PulseGradientStart, PulseGradientEnd)
+                    ),
+                    style = Stroke(
+                        width = 28f,
+                        cap = StrokeCap.Round,
+                        join = StrokeJoin.Round
+                    )
+                )
+            }
         }
     }
 }
