@@ -27,7 +27,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -101,7 +100,7 @@ fun OnboardingScreen(
                 Spacer(modifier = Modifier.height(24.dp))
                 Text(
                     text = "“Pulse AI te ayuda a no\nolvidar lo importante”",
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onBackground
                 )
@@ -313,5 +312,13 @@ private fun PrimaryRoundedButton(
 fun OnboardingPreview() {
     AppTheme {
         OnboardingScreen()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RegistrationPreview() {
+    AppTheme {
+        RegistrationScreen()
     }
 }
