@@ -31,6 +31,16 @@
             android:exported="false"
             android:label="Inicio"
             android:theme="@style/Theme.Pulseai" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="Ajustes"
+            android:theme="@style/Theme.Pulseai" />
+        <activity
+            android:name=".IntegrationsActivity"
+            android:exported="false"
+            android:label="Integraciones"
+            android:theme="@style/Theme.Pulseai" />
     </application>
 
 </manifest>

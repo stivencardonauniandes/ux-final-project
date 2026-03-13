@@ -10,20 +10,26 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.pulse_ai.ui.theme.AppTheme
 
-class HomeActivity : ComponentActivity() {
+class SettingsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             AppTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    HomeScreen(
-                        onSuggestedAlarmsClick = { /* TODO */ },
-                        onSettingsClick = {
-                            startActivity(Intent(this, SettingsActivity::class.java))
+                    SettingsScreen(
+                        onBack = { finish() },
+                        onIntegracionesClick = {
+                            startActivity(Intent(this, IntegrationsActivity::class.java))
                         },
-                        onAlarmAdjustClick = { /* TODO */ },
-                        onFabClick = { /* TODO */ },
+                        onCerrarSesionClick = {
+                            startActivity(
+                                Intent(this, MainActivity::class.java).apply {
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                }
+                            )
+                            finish()
+                        },
                     )
                 }
             }
