@@ -1,6 +1,5 @@
 package com.example.pulse_ai
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,18 +9,18 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.pulse_ai.ui.theme.AppTheme
 
-class HowItWorksActivity : ComponentActivity() {
+class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             AppTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    HowItWorksOnboardingScreen(
-                        onContinueClick = {
-                            startActivity(Intent(this, HomeActivity::class.java))
-                            finish()
-                        },
+                    HomeScreen(
+                        onSuggestedAlarmsClick = { /* TODO */ },
+                        onSettingsClick = { /* TODO */ },
+                        onAlarmAdjustClick = { /* TODO */ },
+                        onFabClick = { /* TODO */ },
                     )
                 }
             }
