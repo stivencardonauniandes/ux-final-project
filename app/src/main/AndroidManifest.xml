@@ -41,6 +41,11 @@
             android:exported="false"
             android:label="Integraciones"
             android:theme="@style/Theme.Pulseai" />
+        <activity
+            android:name=".SuggestedAlarmsActivity"
+            android:exported="false"
+            android:label="Alarmas sugeridas"
+            android:theme="@style/Theme.Pulseai" />
     </application>
 
 </manifest>
