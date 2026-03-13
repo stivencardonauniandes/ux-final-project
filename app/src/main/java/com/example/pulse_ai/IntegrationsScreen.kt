@@ -17,7 +17,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.ChevronRight
+import androidx.compose.material.icons.outlined.Chat
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.Mail
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.ChevronLeft
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -34,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,14 +53,14 @@ private val acceptButtonGreen = Color(0xFF2E7D32)
 
 data class IntegrationItem(
     val name: String,
-    val iconChar: String,
+    val icon: ImageVector,
 )
 
 private val defaultIntegrations = listOf(
-    IntegrationItem("Google Calendar", "📅"),
-    IntegrationItem("Whats App", "📱"),
-    IntegrationItem("Apple Calendar", "♥"),
-    IntegrationItem("Gmail", "✉"),
+    IntegrationItem("Google Calendar", Icons.Outlined.CalendarMonth),
+    IntegrationItem("Whats App", Icons.Outlined.Chat),
+    IntegrationItem("Apple Calendar", Icons.Outlined.Favorite),
+    IntegrationItem("Gmail", Icons.Outlined.Mail),
 )
 
 @Composable
@@ -73,7 +80,7 @@ fun IntegrationsScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface),
         ) {
-        // Barra superior: flecha atrás + título
+        // Barra superior: solo chevron atrás (sin título)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -81,18 +88,12 @@ fun IntegrationsScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             IconButton(onClick = onBack) {
-                Text(
-                    text = "←",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
+                Icon(
+                    imageVector = Icons.Outlined.ChevronLeft,
+                    contentDescription = "Volver",
+                    tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
-            Text(
-                text = "Integraciones",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
         }
 
         Column(
@@ -101,7 +102,7 @@ fun IntegrationsScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 24.dp),
         ) {
-            // Sección de perfil
+            // Sección de perfil: avatar + nombre + email
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -111,7 +112,7 @@ fun IntegrationsScreen(
             ) {
                 Box(
                     modifier = Modifier
-                        .size(56.dp)
+                        .size(64.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.primaryContainer),
                     contentAlignment = Alignment.Center,
@@ -119,14 +120,14 @@ fun IntegrationsScreen(
                     Icon(
                         imageVector = Icons.Outlined.Person,
                         contentDescription = null,
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier.size(36.dp),
                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     )
                 }
                 Column {
                     Text(
                         text = userName,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
@@ -200,56 +201,45 @@ private fun IntegrationListItem(
     item: IntegrationItem,
     onConnectClick: () -> Unit,
 ) {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
+            .clickable(onClick = onConnectClick),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(
-                        text = item.iconChar,
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                }
-                Text(
-                    text = item.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-            }
-            Row(
-                modifier = Modifier.clickable(onClick = onConnectClick),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                Text(
-                    text = "conectar",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-                Text(
-                    text = "›",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-            }
+            Icon(
+                imageVector = item.icon,
+                contentDescription = null,
+                modifier = Modifier.size(24.dp),
+                tint = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = item.name,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Text(
+                text = "conectar",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Icon(
+                imageVector = Icons.Outlined.ChevronRight,
+                contentDescription = null,
+                modifier = Modifier.size(20.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }

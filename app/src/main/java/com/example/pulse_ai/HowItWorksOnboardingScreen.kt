@@ -108,6 +108,8 @@ fun HowItWorksOnboardingScreen(
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
+
+            Spacer(modifier = Modifier.height(48.dp))
         }
     }
 }

@@ -135,6 +135,8 @@ fun OnboardingScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
+            Spacer(modifier = Modifier.height(48.dp))
+
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
