@@ -80,7 +80,11 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .padding(innerPadding),
-                                onBack = { currentScreen = Screen.Onboarding }
+                                onBack = { currentScreen = Screen.Onboarding },
+                                onLogin = {
+                                    startActivity(Intent(this, HomeActivity::class.java))
+                                    finish()
+                                }
                             )
                         }
                     }

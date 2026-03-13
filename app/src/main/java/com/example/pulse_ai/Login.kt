@@ -35,6 +35,7 @@ import com.example.pulse_ai.ui.theme.AppTheme
 fun LoginScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {},
+    onLogin: () -> Unit = {},
 ) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
@@ -83,6 +84,7 @@ fun LoginScreen(
                 onClick = {
                     focusManager.clearFocus()
                     // TODO: validate and perform login
+                    onLogin()
                 }
             )
         }
